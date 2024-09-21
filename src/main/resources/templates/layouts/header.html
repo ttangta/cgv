@@ -1,31 +1,166 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <style type="text/css">
+.centered-form-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.loginimg, .joinimg, .logoutimg, .myinfoimg {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 20px;
+}
+
+a {
+	/* 강제로 적용 */
+	text-decoration: none !important;
+}
+
+a span {
+	color: black;
+	font-size: 13px;
+	text-align: center;
+}
+
+.submenu {
+	display: flex;
+	justify-content: center;
+	height: 5%;
+	gap: 20px;
+}
+
+.menu-item {
+	position: relative;
+}
+/* 메뉴아이템 하위의 dropdown 클래스 */
+.menu-item .dropdown {
+	display: none;
+	position: absolute; /* */
+	top: 100%;
+	left: 0; /* */
+	background-color: white;
+	padding: 10px;
+	border: 1px solid #ddd;
+	z-index: 100;
+	/*요소들의 쌓이는 순서를 결정하는 속성 position이 relative, absolute, fixed, sticky 중 하나인 요소에만 적용 ※드롭다운 될 위치에 배너가 있어서 배너 위쪽으로 보이게 하기위한 코드 ※ */
+	width: 150px;
+}
+
+.menu-item:hover .dropdown {
+	display: block;
+}
+
+.menu-item:hover {
+	cursor: pointer;
+}
+
+.dropdown-item {
+	padding: 10px;
+	color: black;
+	text-decoration: none;
+	display: block;
+}
 </style>
-<nav class="navbar navbar-expand-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">CGV</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <div class="d-flex w-100 justify-content-center" id="search"> <!-- 해당부분의 넓이를 넓히고 싶은데 -->
-	      <form class="form-inline my-2 my-lg-0 d-flex justify-content-center align-items-center" role="search">
-	        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-	        <button class="btn btn-outline-success" type="submit">Search</button>
-	      </form>
-      </div>
-      <a href="/loginForm" class="ml-auto"><img src="/img/login.png" width="55px" height="55px;"></a>
-    </div>
-  </div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">CGV</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarTogglerDemo02"
+			aria-controls="navbarTogglerDemo02" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="#">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+				<li class="nav-item"><a class="nav-link disabled"
+					aria-disabled="true">Disabled</a></li>
+			</ul>
+			<div class="centered-form-container">
+				<form class="d-flex" role="search" action="search_movie">
+					<input class="form-control me-2" type="search" placeholder="영화 검색"
+						aria-label="Search" name="title">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+			<div>
+				<th:block th:if="${session.MemId == null}">
+					<a href="loginForm"> <img src="img/login.png" width="50px"
+						height="50px" class="loginimg"> <span>로그인</span>
+					</a>
+				</th:block>
+				<th:block th:if="${session.MemId != null}">
+					<a href="#">
+						<img src="img/myinfo.png" width="50px" height="50px" class="myinfoimg">
+						<span>내 정보</span>
+					</a>
+				</th:block>
+			</div>
+			<div>
+				<th:block th:if="${session.MemId == null}">
+					<a href="checkUserForm"> <img src="img/join.png" width="50px" height="50px"
+						class="joinimg"> <span>회원가입</span>
+					</a>
+				</th:block>
+				<th:block th:if="${session.MemId != null}">
+					<a href="logout">
+						<img src="img/logout.png" width="50px" height="50px" class="logoutimg">
+						<span>로그아웃</span>
+					</a>
+				</th:block>
+			</div>
+		</div>
+	</div>
 </nav>
+<div class="submenu">
+	<div class="menu-item">
+		<span>영화</span>
+		<div class="dropdown">
+			<a href="#" class="dropdown-item">무비차트</a> <a href="#"
+				class="dropdown-item">상영 중인 영화</a> <a href="#" class="dropdown-item">개봉
+				예정</a>
+		</div>
+	</div>
+	<div class="menu-item">
+		<span>극장</span>
+		<div class="dropdown">
+			<a href="#" class="dropdown-item">CGV극장</a> <a href="#"
+				class="dropdown-item">특별관</a>
+
+		</div>
+	</div>
+	<div class="menu-item">
+		<span>예매</span>
+		<div class="dropdown">
+			<a href="#" class="dropdown-item"></a> <a href="#"
+				class="dropdown-item"></a> <a href="#" class="dropdown-item"></a>
+
+		</div>
+	</div>
+	<div class="menu-item">
+		<span>스토어</span>
+		<div class="dropdown">
+			<a href="#" class="dropdown-item"></a> <a href="#"
+				class="dropdown-item"></a> <a href="#" class="dropdown-item"></a>
+		</div>
+	</div>
+	<div class="menu-item">
+		<span>이벤트</span>
+		<div class="dropdown">
+			<a href="#" class="dropdown-item"></a> <a href="#"
+				class="dropdown-item"></a> <a href="#" class="dropdown-item"></a>
+		</div>
+	</div>
+	<div class="menu-item">
+		<span>혜택</span>
+		<div class="dropdown">
+			<a href="#" class="dropdown-item"></a> <a href="#"
+				class="dropdown-item"></a> <a href="#" class="dropdown-item"></a>
+		</div>
+	</div>
+</div>

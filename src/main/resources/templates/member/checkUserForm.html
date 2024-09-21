@@ -1,0 +1,57 @@
+<div th:replace="~{layouts/header}"></div>
+<link lef="stylesheet" href="css/bootstrap.min.css">
+<style>
+.main{
+	width: 50%;
+	margin: auto;
+}
+.img{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+}
+input[type="text"]{
+	width: 350px;
+	border-radius: 8px;
+	border: 2px solid rgb(248,215,218);
+}
+input[type="text"]{
+	border-radius: 8px;
+	outline: none;
+	border: 2px solid rgb(248,215,218);
+}
+button{
+	width: 100%;
+}
+</style>
+<div class="main">
+	<div class="img">
+	<img alt="이미지" src="img/cgv.jpg" >
+	</div>
+	<form action="checkUser" name="checkUser" method="post">
+		<table class="table">
+			<tr>
+				<th colspan="2" align="left" class="table table-danger">회원가입 여부 안내</th>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="name" placeholder="이름을 입력해주세요" required="required">
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<input type="text" name="birthday" placeholder="생년월일 6자리를 입력해주세요 ex) yymmdd" required="required">
+				</td>
+			</tr>
+			<tr>
+				<td>전화번호</td>
+				<td>
+					<input type="text" name="tel" placeholder="전화번호를 입력해주세요" required="required">
+				</td>
+			</tr>
+		</table>
+		<button class="btn btn-danger" type="submit">가입여부 확인</button>
+	</form>
+</div>
