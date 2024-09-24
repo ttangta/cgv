@@ -5,6 +5,7 @@ import java.beans.JavaBean;
 @JavaBean
 public class MemberInfoDTO {
 	private String name;
+	private String id;
 	private String byear;
 	private String bmonth;
 	private String bday;
@@ -14,8 +15,9 @@ public class MemberInfoDTO {
 	
 	public MemberInfoDTO() {};
 	
-	public MemberInfoDTO(String name,String byear, String bmonth, String bday, String tel1, String tel2, String tel3) {
+	public MemberInfoDTO(String name,String id,String byear, String bmonth, String bday, String tel1, String tel2, String tel3) {
 		this.name = name;
+		this.id = id;
 		this.byear = byear;
 		this.bmonth = bmonth;
 		this.bday = bday;
@@ -24,21 +26,45 @@ public class MemberInfoDTO {
 		this.tel3 = tel3;	
 	}
 	
-
-	
-	@Override
-	public String toString() {
-		return "MemberInfoDTO [name=" + name + ", byear=" + byear + ", bmonth=" + bmonth + ", bday=" + bday + ", tel1="
-				+ tel1 + ", tel2=" + tel2 + ", tel3=" + tel3 + "]";
+	public MemberInfoDTO(String name,String byear,String bmonth, String bday, String tel1, String tel2, String tel3) {
+		this.name = name;
+		this.byear = byear;
+		this.bmonth = bmonth;
+		this.bday = bday;
+		this.tel1 = tel1;
+		this.tel2 = tel2;
+		this.tel3 = tel3;
 	}
 	
-	// getter / setter
+	public MemberInfoDTO(String id,String bmonth, String bday, String tel1, String tel2, String tel3) {
+		this.id = id;
+		this.bmonth = bmonth;
+		this.bday = bday;
+		this.tel1 = tel1;
+		this.tel2 = tel2;
+		this.tel3 = tel3;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberInfoDTO [name=" + name + ", id=" + id + ", byear=" + byear + ", bmonth=" + bmonth + ", bday="
+				+ bday + ", tel1=" + tel1 + ", tel2=" + tel2 + ", tel3=" + tel3 + "]";
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getByear() {
@@ -88,7 +114,7 @@ public class MemberInfoDTO {
 	public void setTel3(String tel3) {
 		this.tel3 = tel3;
 	}
-
+	
 	
 	
 }

@@ -30,6 +30,6 @@ public class MemberDTO {
 	
 	// Entity로 변환하는 메소드
 	public Member toEntity() {
-		return new Member(seq, name, id, pwd, tel1, tel2, tel3, email1, email2, byear, bmonth, bday, bday);
+		return new Member(seq, name, id, pwd, tel1, tel2, tel3, email1, email2, byear, bmonth, bday, logtime);
 	}
 }

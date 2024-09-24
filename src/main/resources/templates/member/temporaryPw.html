@@ -1,0 +1,134 @@
+<style>
+.main{
+	width:50%;
+	margin:auto;
+}
+.content{
+	width:100%;
+	border-top: 2px solid black;
+	height: 400px;
+	background-color: rgb(248,248,248);
+	
+	
+}
+.content .choiceInfo{
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+}
+.content span{
+	color: rgb(238,105,0);
+}
+.choiceEmail{
+	width: 60%;
+	height: 30%;
+	margin:auto;
+	background-color: white;
+}
+.wirteEmail{
+	display: flex;
+	gap:5px;
+	margin-top: 10px;
+}
+#email1, #atSign, #email2,#selfWrite{
+	display: none;
+}
+
+.buttons{
+	display: flex;
+	margin-top: 6.25%;
+	justify-content: center;
+}
+</style>
+<script type="text/javascript">
+	/* 
+		window.onload를 했을경우 에러가 발생해서
+		"DOMContentLoaded"를 사용했다 차이점으로는
+		window.onload = 페이지의 모든 리소스(이미지,스타일시트,스크립트.iframe 등)가 모두 로드된 후에 실행
+		즉, 페이지에 포함된 모든 리소스가 로드되어야만 window.onload 이벤트가 발생
+		
+		DOMContentLoaded = HTML이 모두 파싱되면 실행된다. 즉, 페이지의 DOM 요소들이 모두 생성된 시점에 발생
+		이미지, 스타일시트, iframe 등의 외부 리소스가 완전히 로드되기 전이라도 DOM 트리가 완성되면 바로 실행됨
+		
+		HTML 파싱 : 브라우저가 HTML 문서를 읽고 이를 DOM 트리로 변환하는 과정
+	
+	*/
+	
+	/*
+		css 적용시 동일한 속성을 여러번 사용하면 충돌이 일어날 수 있다
+		ex) display: none 을 설정하고 태그에서 직접 display: inline 설정시 충돌
+	*/
+	document.addEventListener("DOMContentLoaded",function(){
+		document.getElementById("option1").addEventListener("click",function(){
+			document.getElementById("email1").style.display = "none";
+			document.getElementById("atSign").style.display = "none";
+			document.getElementById("email2").style.display = "none";
+		});
+		document.getElementById("option2").addEventListener("click",function(){
+			document.getElementById("email1").style.display = "block";
+			document.getElementById("atSign").style.display = "block";
+			document.getElementById("email2").style.display = "block";
+		});
+	});
+	function blockTeg(){
+		var choice =  document.getElementById("email2");
+		var select = choice.value;
+		if(select == "직접입력"){
+			document.getElementById("selfWrite").style.display = "block";
+		}else{
+			document.getElementById("selfWrite").style.display = "none";
+		}
+		
+	};
+	
+	function goTO(){
+		//											input 태그 중 name 속성이 'how'인 태그의 상태가 checked인 요소를 가져오기
+		var selectedRadio = document.querySelector("input[name='how']:checked");
+		var option = selectedRadio.value;
+		var frm1 = document.writeEmail;
+		if(option=="inputEmail"){
+			if(!frm1.email1.value.trim()){
+				frm1.email1.focus();
+				alert("이메일을 입력해주세요");
+				return false;
+			}
+			if(frm1.email2.value=="직접입력" && !frm1.selfWrite.value.trim()){
+				frm1.selfWrite.focus();
+				alert("이메일을 입력해주세요");
+				return false;
+			}
+			frm1.submit();
+		}else{
+			location.href='checkEmail'
+		}
+		
+	}
+</script>
+<div th:replace="~{layouts/header}"></div>
+<div class="main">
+	<h2 style="margin-top:55px; text-align: center;">임시비밀번호 확인</h2>
+	<p>비밀번호가 기억나지 않으세요? 임시비밀번호를 이메일로 발급합니다. 임시비밀번호를 발급받을 이메일을 확인해주세요</p>
+	<div class="content">
+		<p class="choiceInfo">원하시는 방법을 선택해 <span>비밀번호를 확인</span>하실 수 있습니다.</p>
+		<div class="choiceEmail">
+			<input type="radio" name="how" id="option1" checked="checked" value="basicEmail"><label for="option1">&nbsp;회원정보에 등록된 E-mail로 받기([[${email}]])</label><br>
+			<input type="radio" name="how" id="option2" value="inputEmail"><label for="option2">&nbsp;직접입력한 E-mail로 받기</label><br>
+			<div class="wirteEmail">
+				<form action="checkEmail" method="post" name="writeEmail" class="wirteEmail">
+					<input type="text" name="email1" id="email1" placeholder="이메일을 입력하세요"  size="10"><p id="atSign">@</p>
+					<input type="text" id="selfWrite" name="selfWrite"size="10">
+					<select id="email2" name="email2" onchange="blockTeg()">
+						<option value="naver.com">naver.com</option>
+						<option value="gmail.com">gmial.com</option>
+						<option value="nate.com">nate.com</option>
+						<option value="daum.net">daum.net</option>
+						<option value="직접입력">직접입력</option>
+					</select>
+				</form>
+			</div>
+		</div>
+		<div class="buttons">
+			<input type="button" value="임시비밀번호 발급" class="btn btn-dark" onclick="goTO()">
+		</div>
+	</div>
+</div>

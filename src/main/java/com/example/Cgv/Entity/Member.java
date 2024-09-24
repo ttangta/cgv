@@ -1,10 +1,14 @@
 package com.example.Cgv.Entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +35,7 @@ public class Member {
 	private String byear;
 	private String bmonth;
 	private String bday;
-	private String logtime;
+	@Temporal(TemporalType.DATE)
+	private Date logtime;
 	
 }

@@ -1,0 +1,72 @@
+<div th:replace="~{layouts/header}"></div>
+<style>
+.main{
+	margin: auto;
+	width:90%;
+	margin-top: 25px;
+}
+.main .info{
+	text-align: center;
+}
+h2{
+	text-align: center;
+	margin-bottom: 15px;
+}
+h4{
+	margin-top: 50px;
+}
+.content{
+	border-top : 2px solid black;
+	width:100%;
+	height:500px;
+	background-color: rgb(248,248,248);
+}
+.content span{
+	color: rgb(238,105,0);
+}
+.temporaryPw{
+	float:left;
+	height:100%;
+	width:40%;
+	border-right:1px solid rgb(221,221,221);
+	margin-left:80px;
+}
+.modifyPw{
+	float:left;
+	margin-left: 80px;
+}
+input[type="text"], input[type="submit"]{
+	width: 70%;
+	margin-bottom: 10px;
+}
+</style>
+<div class="main">
+	<th:block th:if="${menu == 'pw'}">
+		<h2>비밀번호 찾기</h2>
+		<p class="info">비밀번호가 기억나지 않으세요? 원하시는 방법을 선택해 비밀번호를 확인하실 수 있습니다.</p>
+		<div class="content">
+			<div class="temporaryPw">
+				<h4>임시비밀번호 발급</h4>
+				<p style="margin-bottom: 200px;">입력하신 정보는 임시비밀번호 발급에만 사용되며 <span>저장되지 않습니다.</span></p>
+				<form action="temporaryPw" method="post">
+				<input type="text" name="id" required="required" placeholder="아이디를 입력해주세요" style="display: block;">
+				<input type="text" name="birthday" required="required" placeholder="생년월일 6자리를 입력해주세요 ex) yymmdd" style="display: block;">
+				<input type="text" name="tel"  required="required" placeholder="전화번호를 입력해주세요" style="display: block">
+				<input type="submit" value="임시비밀번호 받기" class="btn btn-dark">
+				</form>
+			</div>
+			<div class="modifyPw">
+				<h4>새 비밀번호 설정</h4>
+				<p style="margin-bottom:200px;">본인인증 시 제공되는 정보는 <span>해당 인증기관에서 직접 수집하며,</span>인증 이외의 용도로 이용 또는 저장되지 않습니다.</p>
+				<input type="text" name="id" required="required" placeholder="아이디를 입력해주세요" style="display: block;">
+				<input type="text" name="email" required="required" placeholder="이메일을 입력해주세요">
+				<input type="button" value="인증번호받기" class="btn btn-dark">
+				<input type="text" name="codeNum" required="required" placeholder="인증번호를 입력해주세요">
+				<input type="button" value="비밀번호 재설정" class="btn btn-dark" style="width: 70%">
+			</div>
+		</div>
+	</th:block>
+	<th:block th:if="${menu == 'id'}">
+		아이디 찾기
+	</th:block>
+</div>
